@@ -62,9 +62,3 @@ docs/            arquitetura, dependências e publicação
 ```
 
 Na versão instalada, as preferências e mídias importadas ficam em `%PROGRAMDATA%\AquaLite`, disponíveis ao serviço antes do login. A primeira instalação importa a configuração local anterior quando disponível. A execução de desenvolvimento usa `%LOCALAPPDATA%\AquaLite`. O clima é opcional e consulta a Open-Meteo apenas quando habilitado.
-
-## Publicar no GitHub
-
-Publique **esta pasta**, não a pasta de trabalho que a contém. Veja [o passo a passo](docs/GITHUB.md). A automação compila e testa o projeto no Windows a cada push ou pull request.
-
-Código e temas próprios sob [licença MIT](LICENSE). Componentes opcionais conservam suas próprias licenças: [avisos de terceiros](THIRD_PARTY_NOTICES.md).
