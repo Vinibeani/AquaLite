@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
+    <Platform Condition="'$(Platform)'==''">x64</Platform>
+    <ProjectGuid>{D875B7BC-B756-47AE-BD28-E27DF15C85EB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>AquaLite</RootNamespace>
+    <AssemblyName>AquaLite</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>..\..\build\visualstudio\</OutputPath>
+    <BaseIntermediateOutputPath>..\..\build\obj\</BaseIntermediateOutputPath>
+    <Optimize>true</Optimize>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>..\..\build\generated\assets\aqualite.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="Microsoft.CSharp" />
+    <Compile Include="App\*.cs" />
+    <Compile Include="Configuration\*.cs" />
+    <Compile Include="Devices\*.cs" />
+    <Compile Include="Rendering\*.cs" />
+    <Compile Include="Services\*.cs" />
+    <Compile Include="Telemetry\*.cs" />
+    <Compile Include="Themes\*.cs" />
+    <Compile Include="UI\*.cs" />
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="GenerateAquaLiteAssets" BeforeTargets="BeforeBuild">
+    <Exec Command="powershell -NoProfile -File &quot;$(MSBuildProjectDirectory)\..\..\tools\Generate-Assets.ps1&quot;" />
+  </Target>
+  <Target Name="CopyAquaLiteAssets" AfterTargets="Build">
+    <ItemGroup>
+      <VisualAsset Include="..\..\build\generated\assets\*" />
+      <ThemeData Include="..\..\themes\**\*.json" />
+      <ThemeAsset Include="..\..\build\generated\themes\**\*.png" />
+    </ItemGroup>
+    <Copy SourceFiles="@(VisualAsset)" DestinationFolder="$(TargetDir)assets" />
+    <Copy SourceFiles="@(ThemeData)" DestinationFiles="@(ThemeData->'$(TargetDir)themes\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(ThemeAsset)" DestinationFiles="@(ThemeAsset->'$(TargetDir)themes\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+</Project>

@@ -1,0 +1,27 @@
+name: Relatar problema
+description: Descreva um erro no aplicativo.
+title: "[Erro] "
+body:
+  - type: textarea
+    id: behavior
+    attributes:
+      label: O que aconteceu?
+      description: Informe o que esperava e o que apareceu.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Como reproduzir
+      description: Liste os passos e o modo de exibição utilizado.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Versão do AquaLite e do Windows
+  - type: textarea
+    id: device
+    attributes:
+      label: Dispositivo e componentes opcionais
+      description: Informe o modelo do LCD, leitor de sensores e FFmpeg, se usados. Não inclua dados pessoais.

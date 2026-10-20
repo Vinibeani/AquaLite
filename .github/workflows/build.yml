@@ -1,0 +1,37 @@
+name: Compilar e testar
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compilar, testar e empacotar
+        shell: pwsh
+        run: ./build.ps1 -Test
+      - name: Preparar compilador do instalador
+        shell: pwsh
+        run: |
+          $tooling = Join-Path $env:RUNNER_TEMP 'aqualite-inno'
+          New-Item -ItemType Directory -Path $tooling -Force | Out-Null
+          $setup = Join-Path $tooling 'inno-setup.exe'
+          Invoke-WebRequest 'https://github.com/jrsoftware/issrc/releases/download/is-6_7_3/innosetup-6.7.3.exe' -OutFile $setup
+          if ((Get-FileHash $setup -Algorithm SHA256).Hash.ToLowerInvariant() -ne '9c73c3bae7ed48d44112a0f48e66742c00090bdb5bef71d9d3c056c66e97b732') { throw 'Hash inesperado do compilador.' }
+          $compiler = Join-Path $tooling 'compiler'
+          $process = Start-Process $setup -ArgumentList @('/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/CURRENTUSER','/NOICONS',('/DIR="'+$compiler+'"')) -PassThru -Wait
+          if ($process.ExitCode -ne 0) { throw 'Falha ao preparar compilador.' }
+          ./tools/Build-Installer.ps1 -Compiler (Join-Path $compiler 'ISCC.exe')
+      - name: Guardar instalador
+        uses: actions/upload-artifact@v4
+        with:
+          name: AquaLite-Instalador
+          path: dist/AquaLite-Instalador.exe
+          if-no-files-found: error

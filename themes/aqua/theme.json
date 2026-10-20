@@ -1,0 +1,87 @@
+{
+  "Id": "aqua",
+  "Name": "Aqua",
+  "Layers": [
+    {
+      "Kind": "Image",
+      "Image": "background.png",
+      "X": 0,
+      "Y": 0
+    },
+    {
+      "Kind": "Text",
+      "Text": "AQUA",
+      "X": 240,
+      "Y": 85,
+      "Size": 18,
+      "Font": "Segoe UI",
+      "Align": 1,
+      "Bold": true,
+      "Color": "#3BE0CE"
+    },
+    {
+      "Kind": "Text",
+      "Text": "TEMPERATURA DA CPU",
+      "X": 240,
+      "Y": 145,
+      "Size": 12,
+      "Font": "Segoe UI",
+      "Align": 1,
+      "Color": "#91A2B5"
+    },
+    {
+      "Kind": "Data",
+      "Data": "CPUTEMP",
+      "X": 240,
+      "Y": 183,
+      "Size": 58,
+      "Font": "Segoe UI",
+      "Align": 1,
+      "Bold": true,
+      "Color": "#EDF4FA",
+      "Unit": true
+    },
+    {
+      "Kind": "Data",
+      "Data": "TIME",
+      "Sub": "h:m",
+      "X": 240,
+      "Y": 280,
+      "Size": 26,
+      "Font": "Segoe UI",
+      "Align": 1,
+      "Color": "#3BE0CE"
+    },
+    {
+      "Kind": "StatuBar",
+      "Data": "CPULOAD",
+      "X": 120,
+      "Y": 340,
+      "Width": 240,
+      "Height": 10,
+      "Back": "#273547",
+      "Front": "#3BE0CE"
+    },
+    {
+      "Kind": "Text",
+      "Text": "USO DA CPU",
+      "X": 240,
+      "Y": 365,
+      "Size": 11,
+      "Font": "Segoe UI",
+      "Align": 1,
+      "Color": "#91A2B5"
+    },
+    {
+      "Kind": "Data",
+      "Data": "CPULOAD",
+      "X": 240,
+      "Y": 390,
+      "Size": 18,
+      "Font": "Segoe UI",
+      "Align": 1,
+      "Color": "#EDF4FA",
+      "Unit": true
+    }
+  ]
+}
